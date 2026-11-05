@@ -153,6 +153,17 @@ function applyLang() {
 /* ─────────── LOADER ─────────── */
 const WALK = ['assets/char-walk-1.png', 'assets/char-walk-2.png', 'assets/char-walk-3.png', 'assets/char-walk-4.png'];
 WALK.forEach(s => { const i = new Image(); i.src = s; });
+/* the character actually walks: cycle walk frames on every .walk-anim image */
+let wFrame = 0;
+setInterval(() => {
+  wFrame = (wFrame + 1) % 4;
+  $$('.walk-anim').forEach(el => { if (el.getClientRects().length) el.src = WALK[wFrame]; });
+}, 150);
+let pendingAchieve = false;
+function showAchieve() {
+  const a = $('#achieve'); a.hidden = false; confetti();
+  clearTimeout(a._h); a._h = setTimeout(() => { a.hidden = true; }, 9000);
+}
 (function loader() {
   let p = 0, f = 0;
   const fill = $('#loaderFill'), pct = $('#loaderPct'), ch = $('#loaderChar');
@@ -211,6 +222,7 @@ function endTour() {
   $('#dialog').hidden = true;
   $('#tourBtn').hidden = false;
   confetti();
+  if (pendingAchieve) { pendingAchieve = false; showAchieve(); }
 }
 $('#dlgNext').addEventListener('click', () => {
   const full = TOUR[tourIdx][lang];
@@ -248,7 +260,9 @@ $$('.coin').forEach(c => c.addEventListener('click', () => {
   c.classList.add('got'); setTimeout(() => { c.style.display = 'none'; }, 460);
   toast(`${T('coinToast')} ${coins.length}/6`);
   paintCoins();
-  if (coins.length === 6) { $('#achieve').hidden = false; confetti(); }
+  if (coins.length === 6) {
+    if ($('#dialog').hidden) showAchieve(); else pendingAchieve = true;
+  }
 }));
 $('#coinReset').addEventListener('click', () => {
   coins = []; localStorage.removeItem('omar-coins');
@@ -265,12 +279,15 @@ let gRun = false, gScore = 0, gTick = 0, py = 0, vy = 0, obs = [], gCoins = [], 
 const GROUND = 238, PH = 74;
 function openGame() {
   if (coins.length < 6) { toast(T('locked')); return; }
+  if (!$('#dialog').hidden) endTour();
+  $('#achieve').hidden = true;
   $('#gameModal').hidden = false;
   $('#gameBest').textContent = 'TOP ' + (localStorage.getItem('omar-best') || 0);
   drawGame(true);
 }
 function closeGame() { $('#gameModal').hidden = true; gRun = false; cancelAnimationFrame(raf); }
 $('#gameClose').addEventListener('click', closeGame);
+$('#gameModal').addEventListener('click', (e) => { if (e.target.id === 'gameModal') closeGame(); });
 $('#gameStart').addEventListener('click', () => { if (!gRun) startGame(); });
 function jump() { if (py === 0) vy = -12.5; }
 cv.addEventListener('pointerdown', () => { if (gRun) jump(); });
