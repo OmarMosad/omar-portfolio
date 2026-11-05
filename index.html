@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Omar Shehata — Full-Stack Web & Telegram Developer</title>
+<meta name="description" content="Omar Shehata (Omar Mosad) — Full-Stack Web & Telegram Developer. Web3, APIs & Backends. Creator of the Panda Store ecosystem: live stores, Telegram bots and Mini Apps.">
+<meta property="og:title" content="Omar Shehata — Developer Portfolio">
+<meta property="og:description" content="Full-Stack Web & Telegram Developer — Web3, APIs & Backends. Stores, bots and platforms people actually use.">
+<meta property="og:image" content="assets/omar-photo.jpg">
+<link rel="icon" href="assets/char-front.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════ LOADER / START GATE ══════════ -->
+<div id="loader" role="dialog" aria-label="Start">
+  <div class="loader-inner">
+    <div class="loader-logo">OMAR<span>.EXE</span></div>
+    <div class="loader-track">
+      <img id="loaderChar" src="assets/char-walk-1.png" alt="">
+      <div class="loader-bar"><div id="loaderFill"></div></div>
+    </div>
+    <div class="loader-pct"><span id="loaderPct">0</span>%</div>
+    <button id="startBtn" class="px-btn big" hidden data-i18n="pressStart">▶ PRESS START</button>
+    <p class="loader-hint" id="loaderHint" data-i18n="loading">LOADING…</p>
+  </div>
+  <div class="grid-floor"></div>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header id="siteHeader">
+  <a class="logo" href="#top">OMAR<span>.SHEHATA</span><i>_</i></a>
+  <nav class="main-nav">
+    <a href="#work" data-i18n="navWork">Work</a>
+    <a href="#bots" data-i18n="navBots">Bots</a>
+    <a href="#skills" data-i18n="navSkills">Skills</a>
+    <a href="#services" data-i18n="navServices">Services</a>
+    <a href="cv.html" data-i18n="navCv">Résumé</a>
+  </nav>
+  <div class="header-actions">
+    <button id="themeBtn" class="icon-btn" aria-label="Toggle theme">☾</button>
+    <button id="langBtn" class="icon-btn lang" aria-label="Language">ع</button>
+    <a class="px-btn small talk" href="#contact" data-i18n="letsTalk">Let's talk</a>
+    <button id="menuBtn" class="icon-btn burger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- mobile menu sheet -->
+<div id="menuSheet" class="sheet" hidden>
+  <div class="sheet-card">
+    <div class="sheet-grab"></div>
+    <a href="#work" data-i18n="navWork">Work</a>
+    <a href="#bots" data-i18n="navBots">Bots</a>
+    <a href="#skills" data-i18n="navSkills">Skills</a>
+    <a href="#services" data-i18n="navServices">Services</a>
+    <a href="cv.html" data-i18n="navCv">Résumé</a>
+    <a href="#contact" data-i18n="letsTalk">Let's talk</a>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ══════════ HERO ══════════ -->
+  <section id="hero" class="hero">
+    <div class="hero-text">
+      <div class="badge" data-i18n="heroBadge">● Open to freelance — Web, Bots & Platforms</div>
+      <h1><span data-i18n="heroHi">Hi, I'm</span> Omar Shehata<span class="dot">.</span></h1>
+      <div class="rotator"><span data-i18n="heroBuild">I build</span> <b id="rotatorWord">Telegram bots</b><i class="caret"></i></div>
+      <p class="hero-sub" data-i18n="heroSub">Full-Stack Web & Telegram Developer from Tanta, Egypt — Web3, APIs & backends. I design, build and run live products end to end: stores, bots, Mini Apps and platforms people actually use.</p>
+      <div class="hero-cta">
+        <a class="px-btn" href="#work" data-i18n="heroWork">Explore my work</a>
+        <a class="px-btn ghost" href="cv.html" data-i18n="heroCv">View résumé</a>
+      </div>
+      <div class="stats">
+        <div><b>12+</b><span data-i18n="statBots">Telegram bots</span></div>
+        <div><b>8+</b><span data-i18n="statSites">Live sites & stores</span></div>
+        <div><b>6</b><span data-i18n="statPay">Payment rails integrated</span></div>
+      </div>
+      <div class="hero-meta">TANTA · EG — <span id="heroYear">2026</span></div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-card">
+        <img src="assets/omar-photo.jpg" alt="Omar Shehata" fetchpriority="high">
+        <span class="float-chip chip-a">Panda Store 🐼</span>
+        <span class="float-chip chip-b">TON · Web3</span>
+        <button class="coin" data-coin="0" aria-label="Hidden coin">✦</button>
+      </div>
+      <img class="hero-char" src="assets/char-front.png" alt="Pixel Omar">
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
+
+  <!-- ══════════ WORK ══════════ -->
+  <section id="work" class="section">
+    <div class="sec-head"><span class="sec-num">01</span><h2 data-i18n="workTitle">Selected work</h2><p data-i18n="workSub">Products people actually use — live, not demos.</p><button class="coin" data-coin="1" aria-label="Hidden coin">✦</button></div>
+    <div class="work-grid" id="workGrid"></div>
+  </section>
+
+  <!-- ══════════ BOTS ══════════ -->
+  <section id="bots" class="section alt">
+    <div class="sec-head"><span class="sec-num">02</span><h2 data-i18n="botsTitle">Telegram bots & Mini Apps</h2><p data-i18n="botsSub">Telegram is my playground — an ecosystem of bots running live for real users.</p><button class="coin" data-coin="2" aria-label="Hidden coin">✦</button></div>
+    <div class="bots-grid" id="botsGrid"></div>
+  </section>
+
+  <!-- ══════════ SKILLS ══════════ -->
+  <section id="skills" class="section">
+    <div class="sec-head"><span class="sec-num">03</span><h2 data-i18n="skillsTitle">Toolbox</h2><p data-i18n="skillsSub">The exact skill set on my Upwork profile — plus the stack behind Panda Store.</p><button class="coin" data-coin="3" aria-label="Hidden coin">✦</button></div>
+    <div class="skills-wrap" id="skillsWrap"></div>
+  </section>
+
+  <!-- ══════════ SERVICES ══════════ -->
+  <section id="services" class="section alt">
+    <div class="sec-head"><span class="sec-num">04</span><h2 data-i18n="servTitle">What I can build for you</h2><p data-i18n="servSub">Designed, built and launched — end to end.</p><button class="coin" data-coin="4" aria-label="Hidden coin">✦</button></div>
+    <div class="serv-grid" id="servGrid"></div>
+    <div class="process">
+      <div><b>01</b><span data-i18n="step1">Discover — goals, users, scope, a clear plan</span></div>
+      <div><b>02</b><span data-i18n="step2">Design — clean UI that fits your brand</span></div>
+      <div><b>03</b><span data-i18n="step3">Build — fast, tested code on real servers</span></div>
+      <div><b>04</b><span data-i18n="step4">Launch — deploy, payments, support</span></div>
+    </div>
+  </section>
+
+  <!-- ══════════ TERMINAL ══════════ -->
+  <section id="terminal" class="section">
+    <div class="sec-head"><span class="sec-num">05</span><h2 data-i18n="termTitle">Secret terminal</h2><p data-i18n="termSub">Developer? Type <code>help</code> and press Enter.</p></div>
+    <div class="terminal">
+      <div class="term-bar"><i></i><i></i><i></i><span>omar@shehata: ~</span></div>
+      <div class="term-body" id="termBody"></div>
+      <form class="term-input" id="termForm"><span>$</span><input id="termText" autocomplete="off" spellcheck="false" aria-label="Terminal input"></form>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTACT ══════════ -->
+  <section id="contact" class="section alt">
+    <div class="sec-head"><span class="sec-num">06</span><h2 data-i18n="contactTitle">Let's build something great</h2><p data-i18n="contactSub">Have a store, a bot or an idea? I usually reply fast.</p><button class="coin" data-coin="5" aria-label="Hidden coin">✦</button></div>
+    <div class="contact-grid">
+      <form id="contactForm" class="contact-form">
+        <label><span data-i18n="fName">Your name</span><input id="cfName" required></label>
+        <label><span data-i18n="fMsg">Tell me about your project</span><textarea id="cfMsg" rows="4" required></textarea></label>
+        <button class="px-btn" type="submit" data-i18n="fSend">Send on WhatsApp ↗</button>
+      </form>
+      <div class="contact-cards">
+        <a class="c-card tg" href="https://t.me/OmarPanda" target="_blank" rel="noopener"><b>Telegram</b><span>@OmarPanda</span></a>
+        <a class="c-card wa" href="https://wa.me/201099174529" target="_blank" rel="noopener"><b>WhatsApp</b><span>+20 109 917 4529</span></a>
+        <div class="socials" id="socialsRow"></div>
+        <p class="contact-meta">Tanta, Egypt · GMT+2</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="foot-name">OMAR SHEHATA</div>
+  <div class="foot-char"><img src="assets/char-front.png" alt=""><span class="bubble" data-i18n="footHi">Hi! 👋</span></div>
+  <p data-i18n="footTag">Building technology that ships — stores, bots and platforms.</p>
+  <div class="socials center" id="socialsFoot"></div>
+  <p class="copy">© <span id="footYear">2026</span> Omar Shehata · <span data-i18n="footMade">Designed & engineered by Omar Shehata</span></p>
+  <button id="toTop" class="px-btn small ghost" data-i18n="toTop">Back to top ↑</button>
+</footer>
+
+<!-- ══════════ HUD ══════════ -->
+<button id="tourBtn" class="hud-btn tour" hidden>🗺️ <span data-i18n="tourBtn">TOUR</span></button>
+<div id="coinHud" class="hud-coins" hidden><span class="coin-ic">✦</span><b id="coinCount">0/6</b><button id="playBtn" class="px-btn small" hidden>▶ Play</button><button id="coinReset" class="mini" title="Reset">↺</button></div>
+<div id="achieve" class="achieve" hidden><b data-i18n="achTitle">🏆 ACHIEVEMENT UNLOCKED — Explorer</b><span data-i18n="achSub">You found every hidden coin. Respect! Now let's build something together.</span><button class="px-btn small" id="achPlay">🎮 Play</button></div>
+
+<!-- ══════════ DIALOGUE / TOUR ══════════ -->
+<div id="dialog" class="dialog" hidden>
+  <img class="dlg-char" src="assets/char-front.png" alt="">
+  <div class="dlg-box">
+    <div class="dlg-head"><b>OMAR.EXE</b><span id="dlgChapter"></span><span class="dlg-dots" id="dlgDots"></span></div>
+    <p id="dlgText"></p>
+    <div class="dlg-actions">
+      <button id="dlgBack" class="px-btn small ghost">◀ <span data-i18n="back">Back</span></button>
+      <button id="dlgSkip" class="px-btn small ghost" data-i18n="skip">Skip ⏭</button>
+      <button id="dlgNext" class="px-btn small">Next ▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ GAME ══════════ -->
+<div id="gameModal" class="game-modal" hidden>
+  <div class="game-card">
+    <div class="game-bar"><b>BUG RUNNER — OMAR EDITION</b><button id="gameClose" aria-label="Close">✕</button></div>
+    <canvas id="gameCanvas" width="640" height="300"></canvas>
+    <div class="game-foot">
+      <span id="gameScore">SCORE 0</span><span id="gameBest"></span>
+      <button id="gameStart" class="px-btn small">▶ START</button>
+    </div>
+    <p class="game-hint" data-i18n="gameHint">SPACE / ↑ / TAP to jump · dodge bugs · grab coins</p>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<div id="confetti"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
