@@ -4,43 +4,24 @@ const $ = (s, c) => (c || document).querySelector(s);
 const $$ = (s, c) => [...(c || document).querySelectorAll(s)];
 
 /* ─────────── CODED CHARACTER (pure SVG + CSS animation, no images) ─────────── */
-const CHAR_FRONT = `<svg class="char-svg front" viewBox="0 0 200 250" role="img" aria-label="Omar">
-  <ellipse cx="100" cy="97" rx="34" ry="14" fill="#26355e"/>
-  <rect x="79" y="196" width="16" height="34" rx="3" fill="#232a38"/><rect x="105" y="196" width="16" height="34" rx="3" fill="#232a38"/>
-  <rect x="74" y="228" width="25" height="10" rx="4" fill="#141922"/><rect x="102" y="228" width="25" height="10" rx="4" fill="#141922"/>
-  <g><rect x="33" y="100" width="18" height="84" rx="9" fill="#e8722a"/><circle cx="42" cy="190" r="8" fill="#f0b28c"/></g>
-  <g class="arm-wave"><rect x="149" y="100" width="18" height="84" rx="9" fill="#e8722a"/><circle cx="158" cy="190" r="8" fill="#f0b28c"/></g>
-  <rect x="52" y="92" width="96" height="112" rx="14" fill="#e8722a"/>
-  <path d="M57 122h86M57 148h86M57 174h86" stroke="#c85a1d" stroke-width="3"/>
-  <path d="M84 92h32l-6 42h-20z" fill="#26355e"/>
-  <path d="M95 101l-2 13M105 101l2 13" stroke="#dfe9f5" stroke-width="2.5" stroke-linecap="round"/>
-  <rect x="97" y="134" width="6" height="70" fill="#26355e"/>
-  <rect x="92" y="74" width="16" height="16" fill="#e8a87e"/>
-  <circle cx="66" cy="52" r="6" fill="#f0b28c"/><circle cx="134" cy="52" r="6" fill="#f0b28c"/>
-  <rect x="67" y="16" width="66" height="64" rx="20" fill="#f0b28c"/>
-  <g fill="#20242e"><rect x="65" y="10" width="70" height="22" rx="11"/><circle cx="76" cy="13" r="9"/><circle cx="92" cy="8" r="10"/><circle cx="108" cy="8" r="10"/><circle cx="124" cy="13" r="9"/></g>
-  <g class="eyes" fill="#20242e"><ellipse cx="86" cy="50" rx="4.6" ry="6.2"/><ellipse cx="114" cy="50" rx="4.6" ry="6.2"/></g>
-  <path d="M79 39h13M108 39h13" stroke="#20242e" stroke-width="3" stroke-linecap="round"/>
-  <path d="M100 55q3.5 6-1.5 8.5" stroke="#d18d5f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <rect class="mouth" x="91" y="67" width="18" height="6" rx="3" fill="#8a4b2a"/>
-</svg>`;
-const CHAR_SIDE = `<svg class="char-svg side" viewBox="0 0 200 250" role="img" aria-label="Omar walking">
-  <g class="leg-b"><rect x="90" y="196" width="15" height="36" rx="3" fill="#1b2230"/><rect x="88" y="230" width="27" height="9" rx="4" fill="#141922"/></g>
-  <g class="leg-a"><rect x="100" y="196" width="15" height="36" rx="3" fill="#232a38"/><rect x="98" y="230" width="27" height="9" rx="4" fill="#141922"/></g>
-  <circle cx="72" cy="94" r="15" fill="#26355e"/>
-  <rect x="66" y="88" width="64" height="114" rx="14" fill="#e8722a"/>
-  <path d="M71 118h54M71 144h54M71 170h54" stroke="#c85a1d" stroke-width="3"/>
-  <rect x="120" y="88" width="10" height="114" fill="#26355e"/>
-  <g class="arm-s"><rect x="94" y="100" width="17" height="80" rx="8.5" fill="#e8722a"/><circle cx="102" cy="186" r="8" fill="#f0b28c"/></g>
-  <rect x="92" y="72" width="14" height="16" fill="#e8a87e"/>
-  <rect x="76" y="16" width="58" height="62" rx="19" fill="#f0b28c"/>
-  <g fill="#20242e"><rect x="74" y="10" width="58" height="20" rx="10"/><circle cx="84" cy="12" r="8.5"/><circle cx="99" cy="7" r="9.5"/><circle cx="114" cy="9" r="9"/><circle cx="126" cy="15" r="7.5"/></g>
-  <ellipse cx="118" cy="48" rx="3.6" ry="5.6" fill="#20242e"/>
-  <path d="M111 38h12" stroke="#20242e" stroke-width="3" stroke-linecap="round"/>
-  <path d="M133 50q5 5 0 9" stroke="#d18d5f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <rect x="118" y="64" width="11" height="4.5" rx="2.2" fill="#8a4b2a"/>
-</svg>`;
-$$('.char-slot').forEach(el => { el.innerHTML = el.dataset.char === 'side' ? CHAR_SIDE : CHAR_FRONT; });
+/* ── Pixel Omar: tiny hand-drawn sprites (walk cycle + front + talk) ── */
+const PX_WALK = ['assets/char-px-walk-1.png', 'assets/char-px-walk-2.png', 'assets/char-px-walk-3.png', 'assets/char-px-walk-4.png'];
+const PX_FRONT = 'assets/char-px-front.png', PX_TALK = 'assets/char-px-talk.png';
+[...PX_WALK, PX_FRONT, PX_TALK].forEach(f => { const i = new Image(); i.src = f; });
+$$('.char-slot').forEach(el => {
+  const side = el.dataset.char === 'side';
+  el.innerHTML = `<img class="char-px${side ? ' px-walk' : ''}" src="${side ? PX_WALK[0] : PX_FRONT}" alt="Pixel Omar">`;
+});
+/* loader walk cycle */
+(function () {
+  let fi = 0;
+  const iv = setInterval(() => {
+    const L = $('#loader');
+    if (!L || L.classList.contains('done')) { clearInterval(iv); return; }
+    const img = $('#loaderChar img');
+    if (img) { fi = (fi + 1) % 4; img.src = PX_WALK[fi]; }
+  }, 140);
+})();
 
 /* ─────────── SVG ICONS ─────────── */
 const SVG_PLANE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 3.4 2.8 10.5c-.95.35-.9 1.75.08 2.1l4.7 1.55 1.8 5.6c.23.7 1.17.9 1.85.37l2.45-2 4.65 3.44c.62.46 1.54.1 1.7-.64l2.95-13.9c.18-.88-.62-1.6-1.5-1.32ZM8.6 13.5l9.7-6.1c.22-.14.4.17.21.32l-8.2 7.4-.32 3.05L8.6 13.5Z"/></svg>';
@@ -75,7 +56,7 @@ const PROJECTS = [
     links: [['halfaantiqe.com', 'https://halfaantiqe.com']] },
   { name: 'Louver', type: { en: 'Client Website · Brand', ar: 'موقع عميل · براند' },
     desc: { en: 'A brand website with a clean storefront feel and fast, mobile-first pages.', ar: 'موقع براند بواجهة نضيفة وصفحات سريعة مصممة للموبايل أولًا.' },
-    tags: ['Web', 'UI'], img: '',
+    tags: ['Web', 'UI'], img: 'assets/work-louver.webp',
     links: [['Louver.site', 'https://Louver.site']] },
   { name: 'Dr. Mohamed Aboeleneen', type: { en: 'Client Website', ar: 'موقع عميل' },
     desc: { en: 'A personal/professional website for a client — services, content and direct contact, built and deployed end to end.', ar: 'موقع شخصي/مهني لعميل — خدمات ومحتوى وتواصل مباشر، اتبنى واتنشر من الألف للياء.' },
@@ -83,14 +64,14 @@ const PROJECTS = [
     links: [['Visit', 'https://drmohamedaboeleneen.vercel.app']] },
   { name: 'Lumi & Milo', type: { en: 'Graduation Project · AI Platform', ar: 'مشروع تخرج · منصة ذكاء اصطناعي' },
     desc: { en: 'My graduation project (PC401): a cognitive-training platform for children with ADHD, with a Session LSTM model that adapts each session — full backend, APIs and live deployment.', ar: 'مشروع تخرجي (PC401): منصة تدريب معرفي لأطفال فرط الحركة وتشتت الانتباه، بنموذج Session LSTM بيكيّف كل جلسة — باك إند كامل وAPIs ونشر حي.' },
-    tags: ['Python', 'Machine Learning', 'APIs', 'PostgreSQL'], img: '',
+    tags: ['Python', 'Machine Learning', 'APIs', 'PostgreSQL'], img: 'assets/work-lumi.webp',
     links: [['api.lumi-milo.website', 'https://api.lumi-milo.website']] },
   { name: 'Financial Management System', type: { en: 'Desktop App · Windows', ar: 'تطبيق ديسكتوب · ويندوز' },
     desc: { en: 'A desktop financial-management system built for an agricultural contracting company — records, reports and daily operations.', ar: 'نظام إدارة مالية ديسكتوب اتعمل لشركة مقاولات زراعية — قيود وتقارير وتشغيل يومي.' },
-    tags: ['Desktop', 'Windows', 'Database'], img: '', links: [] },
+    tags: ['Desktop', 'Windows', 'Database'], img: 'assets/work-finance.webp', links: [] },
   { name: 'Azkaary', type: { en: 'Web App', ar: 'تطبيق ويب' },
     desc: { en: 'A web app for azkar and daily remembrance, designed to be light and instant on any phone.', ar: 'تطبيق ويب للأذكار والذكر اليومي، مصمم يكون خفيف وفوري على أي موبايل.' },
-    tags: ['Web App', 'JavaScript'], img: '',
+    tags: ['Web App', 'JavaScript'], img: 'assets/work-azkaary.webp',
     links: [['azkaary.netlify.app', 'https://azkaary.netlify.app']] },
 ];
 
@@ -249,12 +230,12 @@ function showAchieve() {
 /* ─────────── TOUR ─────────── */
 let tourIdx = -1, typing = null;
 function openTourChoice() { startTour(0); }
-function setTalk(on) { const s = $('#dialog .char-svg'); if (s) s.classList.toggle('talking', on); }
+function setTalk(on) { const img = $('#dialog .char-px'); if (img) img.src = on ? PX_TALK : PX_FRONT; }
 function startTour(i) {
   tourIdx = i;
   $('#dialog').hidden = false;
   $('#tourBtn').hidden = true;
-  const s = $('#dialog .char-svg');
+  const s = $('#dialog .char-px');
   if (s) { s.classList.add('waving'); setTimeout(() => s.classList.remove('waving'), 2600); }
   showLine();
 }
@@ -501,3 +482,35 @@ $('#heroYear').textContent = new Date().getFullYear();
 $('#footYear').textContent = new Date().getFullYear();
 applyLang();
 paintCoins();
+
+/* ─────────── SKILLS RUNNER: Pixel Omar runs the line above the toolbox, turns to face you at each end ─────────── */
+(function initRunner() {
+  const track = document.querySelector('.runner-track'), img = $('#runnerChar');
+  if (!track || !img) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    img.src = PX_FRONT; img.style.left = '50%'; img.style.transform = 'translateX(-50%)';
+    return;
+  }
+  let x = 0, dir = 1, mode = 'run', pauseEnd = 0, fi = 0, fLast = 0, last = performance.now(), active = false;
+  new IntersectionObserver(en => { active = en[0].isIntersecting; last = performance.now(); }, { threshold: 0.05 }).observe(track);
+  function tick(now) {
+    requestAnimationFrame(tick);
+    if (!active) return;
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    const maxX = Math.max(0, track.clientWidth - img.clientWidth - 4);
+    if (mode === 'pause') {
+      if (now >= pauseEnd) { mode = 'run'; img.src = PX_WALK[0]; }
+      return;
+    }
+    x += dir * (track.clientWidth / 6.5) * dt;
+    if (x >= maxX || x <= 0) {
+      x = Math.min(Math.max(x, 0), maxX);
+      dir *= -1; mode = 'pause'; pauseEnd = now + 1500;
+      img.src = PX_FRONT; img.style.transform = `translateX(${x}px)`;
+      return;
+    }
+    if (now - fLast > 130) { fLast = now; fi = (fi + 1) % 4; img.src = PX_WALK[fi]; }
+    img.style.transform = `translateX(${x}px) scaleX(${dir})`;
+  }
+  requestAnimationFrame(tick);
+})();
