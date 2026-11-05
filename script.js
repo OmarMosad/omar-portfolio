@@ -3,6 +3,66 @@
 const $ = (s, c) => (c || document).querySelector(s);
 const $$ = (s, c) => [...(c || document).querySelectorAll(s)];
 
+/* ─────────── CODED CHARACTER (pure SVG + CSS animation, no images) ─────────── */
+const CHAR_FRONT = `<svg class="char-svg front" viewBox="0 0 200 250" role="img" aria-label="Omar">
+  <ellipse cx="100" cy="97" rx="34" ry="14" fill="#26355e"/>
+  <rect x="79" y="196" width="16" height="34" rx="3" fill="#232a38"/><rect x="105" y="196" width="16" height="34" rx="3" fill="#232a38"/>
+  <rect x="74" y="228" width="25" height="10" rx="4" fill="#141922"/><rect x="102" y="228" width="25" height="10" rx="4" fill="#141922"/>
+  <g><rect x="33" y="100" width="18" height="84" rx="9" fill="#e8722a"/><circle cx="42" cy="190" r="8" fill="#f0b28c"/></g>
+  <g class="arm-wave"><rect x="149" y="100" width="18" height="84" rx="9" fill="#e8722a"/><circle cx="158" cy="190" r="8" fill="#f0b28c"/></g>
+  <rect x="52" y="92" width="96" height="112" rx="14" fill="#e8722a"/>
+  <path d="M57 122h86M57 148h86M57 174h86" stroke="#c85a1d" stroke-width="3"/>
+  <path d="M84 92h32l-6 42h-20z" fill="#26355e"/>
+  <path d="M95 101l-2 13M105 101l2 13" stroke="#dfe9f5" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="97" y="134" width="6" height="70" fill="#26355e"/>
+  <rect x="92" y="74" width="16" height="16" fill="#e8a87e"/>
+  <circle cx="66" cy="52" r="6" fill="#f0b28c"/><circle cx="134" cy="52" r="6" fill="#f0b28c"/>
+  <rect x="67" y="16" width="66" height="64" rx="20" fill="#f0b28c"/>
+  <g fill="#20242e"><rect x="65" y="10" width="70" height="22" rx="11"/><circle cx="76" cy="13" r="9"/><circle cx="92" cy="8" r="10"/><circle cx="108" cy="8" r="10"/><circle cx="124" cy="13" r="9"/></g>
+  <g class="eyes" fill="#20242e"><ellipse cx="86" cy="50" rx="4.6" ry="6.2"/><ellipse cx="114" cy="50" rx="4.6" ry="6.2"/></g>
+  <path d="M79 39h13M108 39h13" stroke="#20242e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M100 55q3.5 6-1.5 8.5" stroke="#d18d5f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <rect class="mouth" x="91" y="67" width="18" height="6" rx="3" fill="#8a4b2a"/>
+</svg>`;
+const CHAR_SIDE = `<svg class="char-svg side" viewBox="0 0 200 250" role="img" aria-label="Omar walking">
+  <g class="leg-b"><rect x="90" y="196" width="15" height="36" rx="3" fill="#1b2230"/><rect x="88" y="230" width="27" height="9" rx="4" fill="#141922"/></g>
+  <g class="leg-a"><rect x="100" y="196" width="15" height="36" rx="3" fill="#232a38"/><rect x="98" y="230" width="27" height="9" rx="4" fill="#141922"/></g>
+  <circle cx="72" cy="94" r="15" fill="#26355e"/>
+  <rect x="66" y="88" width="64" height="114" rx="14" fill="#e8722a"/>
+  <path d="M71 118h54M71 144h54M71 170h54" stroke="#c85a1d" stroke-width="3"/>
+  <rect x="120" y="88" width="10" height="114" fill="#26355e"/>
+  <g class="arm-s"><rect x="94" y="100" width="17" height="80" rx="8.5" fill="#e8722a"/><circle cx="102" cy="186" r="8" fill="#f0b28c"/></g>
+  <rect x="92" y="72" width="14" height="16" fill="#e8a87e"/>
+  <rect x="76" y="16" width="58" height="62" rx="19" fill="#f0b28c"/>
+  <g fill="#20242e"><rect x="74" y="10" width="58" height="20" rx="10"/><circle cx="84" cy="12" r="8.5"/><circle cx="99" cy="7" r="9.5"/><circle cx="114" cy="9" r="9"/><circle cx="126" cy="15" r="7.5"/></g>
+  <ellipse cx="118" cy="48" rx="3.6" ry="5.6" fill="#20242e"/>
+  <path d="M111 38h12" stroke="#20242e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M133 50q5 5 0 9" stroke="#d18d5f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <rect x="118" y="64" width="11" height="4.5" rx="2.2" fill="#8a4b2a"/>
+</svg>`;
+$$('.char-slot').forEach(el => { el.innerHTML = el.dataset.char === 'side' ? CHAR_SIDE : CHAR_FRONT; });
+
+/* ─────────── SVG ICONS ─────────── */
+const SVG_PLANE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 3.4 2.8 10.5c-.95.35-.9 1.75.08 2.1l4.7 1.55 1.8 5.6c.23.7 1.17.9 1.85.37l2.45-2 4.65 3.44c.62.46 1.54.1 1.7-.64l2.95-13.9c.18-.88-.62-1.6-1.5-1.32ZM8.6 13.5l9.7-6.1c.22-.14.4.17.21.32l-8.2 7.4-.32 3.05L8.6 13.5Z"/></svg>';
+const SVG_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg>';
+const SVG_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>';
+const SVG_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const GLYPHS = {
+  github: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 2.9-.9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.2 9.2 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.8-2.4 4.6-4.6 4.9.4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>',
+  telegram: SVG_PLANE,
+  instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>',
+  tiktok: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 3c.4 2.3 1.9 3.9 4.2 4.1v3c-1.6 0-3-.5-4.2-1.3v6.5c0 3.4-2.4 5.7-5.6 5.7A5.4 5.4 0 0 1 5.6 13c0-3 2.4-5.3 5.4-5.3.3 0 .7 0 1 .1v3.2a2.3 2.3 0 0 0-1-.2 2.28 2.28 0 0 0-2.3 2.3c0 1.3 1 2.3 2.3 2.3 1.4 0 2.4-1 2.4-2.5V3h3.2Z"/></svg>',
+  facebook: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.5v-7.2h2.5l.4-3h-2.9V9.4c0-.9.3-1.5 1.6-1.5h1.4V5.2c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5v7.2h3Z"/></svg>',
+  discord: '<svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M6.3 4.6A13.4 13.4 0 0 1 9.5 4l.2.4c-1.9.3-3.5.9-4.9 1.9C6.2 5.4 9 4.8 12 4.8s5.8.6 7.2 1.5A12.6 12.6 0 0 0 14.3 4.4L14.5 4c1.1.1 2.2.3 3.2.6A14.8 14.8 0 0 1 20.9 14a13.7 13.7 0 0 1-4.2 2.2l-.7-1.1c.5-.2 1-.4 1.4-.7l-.4-.3a11.9 11.9 0 0 1-10 0l-.4.3c.4.3.9.5 1.4.7l-.7 1.1A13.6 13.6 0 0 1 3.1 14 14.7 14.7 0 0 1 6.3 4.6ZM8.7 11.6c-1 0-1.7.9-1.7 1.9s.8 1.9 1.7 1.9c1 0 1.7-.9 1.7-1.9s-.8-1.9-1.7-1.9Zm6.6 0c-1 0-1.7.9-1.7 1.9s.8 1.9 1.7 1.9c1 0 1.7-.9 1.7-1.9s-.8-1.9-1.7-1.9Z"/></svg>',
+  briefcase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2M3 13h18"/></svg>',
+};
+const SERV_ICONS = [
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6-5 6 5 6M16 6l5 6-5 6"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12l3.5 5L12 21 2.5 8Z"/><path d="M2.5 8h19M9 3l3 5 3-5M12 8v13"/></svg>',
+];
+
 /* ─────────── DATA ─────────── */
 const PROJECTS = [
   { name: 'Panda Store', type: { en: 'Platform · Telegram Stars Store', ar: 'منصة · متجر نجوم تيليجرام' },
@@ -59,11 +119,12 @@ const SERVICES = [
 ];
 
 const SOCIALS = [
-  ['GitHub', 'https://github.com/OmarMosad'], ['Upwork', 'https://www.upwork.com/freelancers/~012ec916e413d3909f'],
-  ['Telegram', 'https://t.me/OMAR_M_SHEHATA'], ['Channel', 'https://t.me/PandaAdds'],
-  ['Instagram', 'https://www.instagram.com/omar_shehata_1'], ['TikTok', 'https://www.tiktok.com/@omar_m.shehata'],
-  ['Facebook', 'https://www.facebook.com/share/1ALaM4t1YJ/'], ['Discord', 'https://discord.com/users/omar_shehata_1'],
+  ['GitHub', 'https://github.com/OmarMosad', 'github'], ['Upwork', 'https://www.upwork.com/freelancers/~012ec916e413d3909f', 'briefcase'],
+  ['Telegram', 'https://t.me/OMAR_M_SHEHATA', 'telegram'], ['Channel', 'https://t.me/PandaAdds', 'telegram'],
+  ['Instagram', 'https://www.instagram.com/omar_shehata_1', 'instagram'], ['TikTok', 'https://www.tiktok.com/@omar_m.shehata', 'tiktok'],
+  ['Facebook', 'https://www.facebook.com/share/1ALaM4t1YJ/', 'facebook'], ['Discord', 'https://discord.com/users/omar_shehata_1', 'discord'],
 ];
+const BOT_AVA = new Set(['PandaStores_bot', 'PandaCall_Bot', 'QuranByPandaBot', 'Panda_StarsBot', 'PandaGiveawaysBot', 'Roulette_Panda_Bot', 'Panda_votes_bot', 'PandaStoreApiBot', 'Ton_PricesBot', 'Arab_ton_bot', 'ArbTonAKbot']);
 
 const ROTATOR = {
   en: ['Telegram bots', 'online stores', 'Mini Apps', 'REST APIs', 'TON payments', 'full platforms'],
@@ -130,13 +191,19 @@ function render() {
       <div class="tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
       <div class="work-links">${p.links.map(l => `<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join('')}</div></div>
     </article>`).join('');
-  $('#botsGrid').innerHTML = BOTS.map(b => `
-    <div class="bot-card"><span class="bot-ic">${b[1]}</span><b>${b[0]}</b><span>${b[2][lang]}</span>
-    <a href="https://t.me/${b[0].slice(1)}" target="_blank" rel="noopener">${T('visit')}</a></div>`).join('');
+  $('#botsList').innerHTML = BOTS.map(b => {
+    const u = b[0].slice(1);
+    const ava = BOT_AVA.has(u)
+      ? `<img class="bot-ava" src="assets/bots/${u}.jpg" alt="" loading="lazy">`
+      : `<span class="bot-ava-fb">${SVG_PLANE}</span>`;
+    return `<a class="bot-row" href="https://t.me/${u}" target="_blank" rel="noopener">${ava}
+      <span class="bot-info"><b>${b[0]}</b><span>${b[2][lang]}</span></span>
+      <span class="bot-open">${lang === 'ar' ? 'افتح' : 'Open'} ${SVG_ARROW}</span></a>`;
+  }).join('');
   $('#skillsWrap').innerHTML = SKILLS.map(s => `<span class="skill-chip">${s}</span>`).join('');
   $('#servGrid').innerHTML = SERVICES.map((s, i) => `
-    <div class="serv-card"><span class="serv-num">0${i + 1}</span><h3>${s[lang][0]}</h3><p>${s[lang][1]}</p></div>`).join('');
-  const soc = SOCIALS.map(s => `<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join('');
+    <div class="serv-card"><span class="serv-ic">${SERV_ICONS[i]}</span><span class="serv-num">0${i + 1}</span><h3>${s[lang][0]}</h3><p>${s[lang][1]}</p></div>`).join('');
+  const soc = SOCIALS.map(s => `<a href="${s[1]}" target="_blank" rel="noopener">${GLYPHS[s[2]] || ''}${s[0]}</a>`).join('');
   $('#socialsRow').innerHTML = soc; $('#socialsFoot').innerHTML = soc;
   const words = [...SKILLS.slice(0, 10), 'TON', 'Web3'];
   $('#marqueeTrack').innerHTML = (words.map(w => `<span>${w} ✦</span>`).join('')).repeat(2);
@@ -151,26 +218,18 @@ function applyLang() {
 }
 
 /* ─────────── LOADER ─────────── */
-const WALK = ['assets/char-walk-1.png', 'assets/char-walk-2.png', 'assets/char-walk-3.png', 'assets/char-walk-4.png'];
-WALK.forEach(s => { const i = new Image(); i.src = s; });
-/* the character actually walks: cycle walk frames on every .walk-anim image */
-let wFrame = 0;
-setInterval(() => {
-  wFrame = (wFrame + 1) % 4;
-  $$('.walk-anim').forEach(el => { if (el.getClientRects().length) el.src = WALK[wFrame]; });
-}, 150);
 let pendingAchieve = false;
 function showAchieve() {
   const a = $('#achieve'); a.hidden = false; confetti();
   clearTimeout(a._h); a._h = setTimeout(() => { a.hidden = true; }, 9000);
 }
 (function loader() {
-  let p = 0, f = 0;
+  let p = 0;
   const fill = $('#loaderFill'), pct = $('#loaderPct'), ch = $('#loaderChar');
   const iv = setInterval(() => {
     p = Math.min(100, p + Math.random() * 16 + 6);
     fill.style.width = p + '%'; pct.textContent = Math.floor(p);
-    ch.src = WALK[f++ % 4]; ch.style.left = `calc(${p}% - ${p * 0.64}px)`;
+    ch.style.left = `calc(${p}% - ${p * 0.59}px)`;
     if (p >= 100) {
       clearInterval(iv);
       $('#loaderHint').hidden = true;
@@ -190,10 +249,13 @@ function showAchieve() {
 /* ─────────── TOUR ─────────── */
 let tourIdx = -1, typing = null;
 function openTourChoice() { startTour(0); }
+function setTalk(on) { const s = $('#dialog .char-svg'); if (s) s.classList.toggle('talking', on); }
 function startTour(i) {
   tourIdx = i;
   $('#dialog').hidden = false;
   $('#tourBtn').hidden = true;
+  const s = $('#dialog .char-svg');
+  if (s) { s.classList.add('waving'); setTimeout(() => s.classList.remove('waving'), 2600); }
   showLine();
 }
 function showLine() {
@@ -210,15 +272,17 @@ function showLine() {
   const text = line[lang];
   const p = $('#dlgText'); p.textContent = '';
   clearInterval(typing);
+  setTalk(true);
   let i = 0;
   typing = setInterval(() => {
     p.textContent = text.slice(0, ++i);
-    if (i >= text.length) clearInterval(typing);
+    if (i >= text.length) { clearInterval(typing); setTalk(false); }
   }, 16);
-  p.onclick = () => { clearInterval(typing); p.textContent = text; };
+  p.onclick = () => { clearInterval(typing); setTalk(false); p.textContent = text; };
 }
 function endTour() {
   clearInterval(typing);
+  setTalk(false);
   $('#dialog').hidden = true;
   $('#tourBtn').hidden = false;
   confetti();
@@ -226,7 +290,7 @@ function endTour() {
 }
 $('#dlgNext').addEventListener('click', () => {
   const full = TOUR[tourIdx][lang];
-  if ($('#dlgText').textContent.length < full.length) { clearInterval(typing); $('#dlgText').textContent = full; return; }
+  if ($('#dlgText').textContent.length < full.length) { clearInterval(typing); setTalk(false); $('#dlgText').textContent = full; return; }
   if (tourIdx < TOUR.length - 1) { tourIdx++; showLine(); } else endTour();
 });
 $('#dlgBack').addEventListener('click', () => { if (tourIdx > 0) { tourIdx--; showLine(); } });
@@ -274,7 +338,27 @@ $('#playBtn').addEventListener('click', openGame);
 
 /* ─────────── GAME ─────────── */
 const cv = $('#gameCanvas'), cx = cv.getContext('2d');
-const frames = WALK.map(s => { const i = new Image(); i.src = s; return i; });
+/* the runner is drawn entirely with code — mini Omar: hair, hoodie, orange jacket, swinging legs */
+function drawRunner(px, base, phase) {
+  const sw = Math.sin(phase) * 0.55, sw2 = Math.sin(phase + Math.PI) * 0.55;
+  const hipY = base - 30;
+  cx.save(); cx.translate(px + 20, hipY);
+  cx.save(); cx.rotate(sw2); cx.fillStyle = '#1b2230'; cx.fillRect(-5, 0, 10, 26); cx.fillStyle = '#141922'; cx.fillRect(-5, 24, 16, 6); cx.restore();
+  cx.save(); cx.rotate(sw); cx.fillStyle = '#232a38'; cx.fillRect(-4, 0, 10, 26); cx.fillStyle = '#141922'; cx.fillRect(-4, 24, 16, 6); cx.restore();
+  cx.restore();
+  const by = base - 64;
+  cx.fillStyle = '#26355e'; cx.beginPath(); cx.arc(px + 7, by + 9, 8, 0, 7); cx.fill();
+  cx.fillStyle = '#e8722a';
+  if (cx.roundRect) { cx.beginPath(); cx.roundRect(px + 3, by, 31, 36, 6); cx.fill(); } else cx.fillRect(px + 3, by, 31, 36);
+  cx.fillStyle = '#c85a1d'; cx.fillRect(px + 5, by + 11, 27, 2.5); cx.fillRect(px + 5, by + 22, 27, 2.5);
+  cx.fillStyle = '#26355e'; cx.fillRect(px + 28, by, 5, 36);
+  cx.save(); cx.translate(px + 16, by + 6); cx.rotate(sw2 * 0.9);
+  cx.fillStyle = '#e8722a'; cx.fillRect(-4, 0, 8, 23); cx.fillStyle = '#f0b28c'; cx.beginPath(); cx.arc(0, 26, 4, 0, 7); cx.fill(); cx.restore();
+  cx.fillStyle = '#f0b28c'; cx.beginPath(); cx.arc(px + 19, by - 9, 10.5, 0, 7); cx.fill();
+  cx.fillStyle = '#20242e'; cx.beginPath(); cx.arc(px + 19, by - 12, 10.5, Math.PI, 0); cx.fill();
+  cx.beginPath(); cx.arc(px + 12, by - 19, 4, 0, 7); cx.arc(px + 19, by - 21, 4.6, 0, 7); cx.arc(px + 26, by - 19, 4, 0, 7); cx.fill();
+  cx.fillStyle = '#20242e'; cx.beginPath(); cx.arc(px + 24.5, by - 9, 1.7, 0, 7); cx.fill();
+}
 let gRun = false, gScore = 0, gTick = 0, py = 0, vy = 0, obs = [], gCoins = [], raf = null;
 const GROUND = 238, PH = 74;
 function openGame() {
@@ -333,8 +417,7 @@ function drawGame(idle) {
     cx.fillStyle = '#ffc93c'; cx.beginPath(); cx.arc(c.x, c.y, 11, 0, 7); cx.fill();
     cx.fillStyle = '#e0a91f'; cx.beginPath(); cx.arc(c.x, c.y, 6, 0, 7); cx.fill();
   }
-  const img = frames[Math.floor(gTick / 6) % 4];
-  if (img.complete) cx.drawImage(img, 62, GROUND - 8 + py, 56, PH + 8);
+  drawRunner(58, 298 + py, idle ? 0 : gTick * 0.32);
   if (idle) { cx.fillStyle = 'rgba(6,10,20,.55)'; cx.fillRect(0, 0, 640, 300); cx.fillStyle = '#fff'; cx.font = 'bold 20px Courier New'; cx.textAlign = 'center'; cx.fillText('BUG RUNNER', 320, 140); cx.font = '14px Courier New'; cx.fillText(T('gameHint'), 320, 168); }
 }
 function gameOver() {
@@ -389,7 +472,7 @@ const themeBtn = $('#themeBtn');
 function setTheme(th) {
   document.documentElement.dataset.theme = th;
   localStorage.setItem('omar-theme', th);
-  themeBtn.textContent = th === 'light' ? '☀' : '☾';
+  themeBtn.innerHTML = th === 'light' ? SVG_SUN : SVG_MOON;
 }
 setTheme(localStorage.getItem('omar-theme') || 'dark');
 themeBtn.addEventListener('click', (e) => {
@@ -406,12 +489,6 @@ const sheet = $('#menuSheet');
 $('#menuBtn').addEventListener('click', () => sheet.hidden = false);
 sheet.addEventListener('click', (e) => { if (e.target === sheet || e.target.closest('a')) sheet.hidden = true; });
 $('#toTop').addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
-$('#contactForm').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const n = $('#cfName').value.trim(), m = $('#cfMsg').value.trim();
-  const txt = encodeURIComponent(`Hi Omar! I'm ${n}.\n${m}`);
-  open(`https://wa.me/201099174529?text=${txt}`, '_blank');
-});
 /* rotator */
 let rIdx = 0;
 setInterval(() => {
