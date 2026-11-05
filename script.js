@@ -243,7 +243,7 @@ function showLine() {
   const line = TOUR[tourIdx];
   const el = $(line.target);
   if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
   }
   $('#dlgChapter').textContent = `${tourIdx + 1}/${TOUR.length}`;

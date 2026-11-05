@@ -275,3 +275,5 @@ footer .copy{font-size:.85rem}
 .runner-track{position:relative;height:78px;margin:.2rem 0 .4rem}
 .runner-line{position:absolute;left:2px;right:2px;bottom:9px;height:5px;background:repeating-linear-gradient(90deg,var(--primary) 0 14px,transparent 14px 27px);opacity:.5}
 .runner-char{position:absolute;bottom:13px;left:0;height:64px;width:auto;image-rendering:pixelated;will-change:transform;z-index:1}
+
+section[id]{scroll-margin-top:78px}
