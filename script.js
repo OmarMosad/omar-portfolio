@@ -101,7 +101,7 @@ const SERVICES = [
 
 const SOCIALS = [
   ['GitHub', 'https://github.com/OmarMosad', 'github'], ['Upwork', 'https://www.upwork.com/freelancers/~012ec916e413d3909f', 'briefcase'],
-  ['Telegram', 'https://t.me/OMAR_M_SHEHATA', 'telegram'], ['Channel', 'https://t.me/PandaAdds', 'telegram'],
+  ['Telegram', 'https://t.me/OmarPanda', 'telegram'], ['Channel', 'https://t.me/PandaStore_org', 'telegram'],
   ['Instagram', 'https://www.instagram.com/omar_shehata_1', 'instagram'], ['TikTok', 'https://www.tiktok.com/@omar_m.shehata', 'tiktok'],
   ['Facebook', 'https://www.facebook.com/share/1ALaM4t1YJ/', 'facebook'], ['Discord', 'https://discord.com/users/omar_shehata_1', 'discord'],
 ];
